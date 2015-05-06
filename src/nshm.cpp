@@ -39,7 +39,7 @@ NAN_METHOD(Read){
         return NanThrowTypeError('Cannot Attach to Shared Memory Segment');
     }
 
-    void *shm_address = shmat(shmid, 0, SHM_RDONLY);
+    void *shm_address = shmat(shm_id, 0, SHM_RDONLY);
 
     Handle<Object> buffer = NanNewBufferHandle((char*)shm_address, shm.shm_segsz);
 
