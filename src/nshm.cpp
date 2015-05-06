@@ -11,7 +11,7 @@ using namespace v8;
 NAN_METHOD (Open){
     NanScope();
 
-    if (args.length < 4){
+    if (args.Length() < 4){
         NanThrowTypeError("Wrong Number of Arguments");
         NanReturnUndefined();
     }
@@ -23,7 +23,7 @@ NAN_METHOD (Open){
     int shm_mode = args[3]->Int32Value();
     
 
-    int shmId = shmget(shmKey, shm_size, shm_mode);
+    int shmId = shmget(shm_key, shm_size, shm_mode);
     NanReturnValue(shmId);
 }
 
