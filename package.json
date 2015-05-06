@@ -1,0 +1,23 @@
+{
+  "name": "nshm",
+  "version": "1.0.0",
+  "description": "Shared Memory for io.js / node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/popasquat89/nshm.git"
+  },
+  "keywords": [
+    "Shared",
+    "Memory"
+  ],
+  "author": "Bryce Jacobs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/popasquat89/nshm/issues"
+  },
+  "homepage": "https://github.com/popasquat89/nshm"
+}
