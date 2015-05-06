@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/popasquat89/nshm/issues"
   },
-  "homepage": "https://github.com/popasquat89/nshm"
+  "homepage": "https://github.com/popasquat89/nshm",
+  "dependencies": {
+    "nan": "^1.8.4"
+  }
 }
