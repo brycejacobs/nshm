@@ -33,15 +33,12 @@ NAN_METHOD(Read){
 
     int shm_id = args[0]->Int32Value();
     
-    struct shmid_ds shm;
-
-    if(shmctl(shm_id, IPC_STAT, &shm)){
-        return NanThrowTypeError('Cannot Attach to Shared Memory Segment');
-    }
+    //struct shmid_ds shm;
+    // shmctl(shm_id, IPC_STAT, &shm);
 
     void *shm_address = shmat(shm_id, 0, SHM_RDONLY);
 
-    Handle<Object> buffer = NanNewBufferHandle((char*)shm_address, shm.shm_segsz);
+    Handle<Object> buffer = NanNewBufferHandle((char*)shm_address, 0x1000);
 
     NanReturnValue(buffer);
 }
