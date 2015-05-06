@@ -1,6 +1,7 @@
 #include <nan.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
+#include <sys/types.h>
 #include <v8.h>
 #include <node.h>
 
@@ -27,13 +28,31 @@ NAN_METHOD (Open){
     NanReturnValue(shmId);
 }
 
+NAN_METHOD(Read){
+    NanScope();
+
+    int shm_id = args[0]->Int32Value();
+    
+    struct shmid_ds shm;
+
+    if(shmctl(shm_id, IPC_STAT, &shm)){
+        return NanThrowTypeError('Cannot Attach to Shared Memory Segment');
+    }
+
+    void *shm_address = shmat(shmid, 0, SHM_RDONLY);
+
+    Handle<Object> buffer = NanNewBufferHandle((char*)shm_address, shm.shm_segsz);
+
+    NanReturnValue(buffer);
+}
+
 void Initialize(v8::Handle<Object> exports) {
       
   exports->Set(NanNew<String>("open"),
       NanNew<FunctionTemplate>(Open)->GetFunction());
   
-  // exports->Set(NanNew<String>("read"),
-  //     NanNew<FunctionTemplate>(Read)->GetFunction());
+  exports->Set(NanNew<String>("read"),
+      NanNew<FunctionTemplate>(Read)->GetFunction());
 
   // exports->Set(NanNew<String>("write"),
   //     NanNew<FunctionTemplate>(Write)->GetFunction());
