@@ -41,9 +41,9 @@ NAN_METHOD(Read){
     if(shm_address == (void *)-1){
         NanReturnUndefined();
     }
-    Handle<Object> buffer = NanNewBufferHandle((char*)shm_address, shm.shm_segsz);
+    // Handle<Object> buffer = NanNewBufferHandle((char*)shm_address, shm.shm_segsz);
 
-    NanReturnValue(buffer);
+    NanReturnValue(shm_address[0]);
 }
 
 void Initialize(v8::Handle<Object> exports) {
