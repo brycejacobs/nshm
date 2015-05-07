@@ -33,12 +33,16 @@ NAN_METHOD(Read){
 
     int shm_id = args[0]->Int32Value();
     
-    //struct shmid_ds shm;
-    // shmctl(shm_id, IPC_STAT, &shm);
+    struct shmid_ds shm;
+    shmctl(shm_id, IPC_STAT, &shm);
 
-    void *shm_address = shmat(shm_id, 0, 0);
+    unsigned char* shm_address = (unsigned char*) shmat(shm_id, 0, SHM_RDONLY);
 
-    Handle<Object> buffer = NanNewBufferHandle((char*)shm_address, 0x1000);
+    if(shm_address == (void*)-1){
+        NanThrowTypeError('Problem attaching to shared memory segment');
+        NanReturnUndefined();
+    }
+    Handle<Object> buffer = NanNewBufferHandle(shm_address, shm.shm_segsz);
 
     NanReturnValue(buffer);
 }
